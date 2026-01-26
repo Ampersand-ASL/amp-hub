@@ -5,11 +5,11 @@ by [Bruce MacKinnon KC1FSZ](https://www.qrz.com/db/KC1FSZ).
 # Building AMP Hub With Install
 
     # Make sure you have all the packages needed to build
-    sudo apt install cmake build-essential git xxd libasound2-dev libcurl4-gnutls-dev Libusb-1.0-0-dev
+    sudo apt -y install cmake build-essential git xxd libasound2-dev libcurl4-gnutls-dev Libusb-1.0-0-dev emacs-nox
     export AMP_HUB_VERSION=1.0
     export ARCH=$(uname -m)
     git clone https://github.com/Ampersand-ASL/amp-hub.git
-    cd asl-hub
+    cd amp-hub
     git submodule update --init
     cmake -DCMAKE_INSTALL_PREFIX=/tmp/amp-hub_${AMP_HUB_VERSION}_${ARCH} -B build
     cmake --build build --target amp-hub
@@ -63,15 +63,15 @@ Service Commands:
 
 # Environment Variables Used At Runtime
 
-    export AMP_NODE0_NUMBER=
+    export AMP_NODE0_NUMBER=672731
     export AMP_NODE0_PASSWORD=
     # Authentication used for public nodes
     # OPEN=No authentication checks by default
     export AMP_IAX_AUTHMODE=OPEN
     # A comma-separated list of nodes that are allowed to connect
-    export AMP_IAX_ALLOWLIST=1000,672731
+    export AMP_IAX_ALLOWLIST=1000,672730
     export AMP_IAX_PROTO=IPV4
-    export AMP_IAX_PORT=4569
+    export AMP_IAX_PORT=4568
     export AMP_HTTP_PORT=8080
     # Not used for private nodes
     #export AMP_ASL_REG_URL=https://register.allstarlink.org
@@ -80,6 +80,8 @@ Service Commands:
     export AMP_ASL_DNS_BASE=nodes.allstarlink.org
     # Pointer to Piper TTS files (voice and the espeak runtime files)
     export AMP_PIPER_DIR=/usr/etc
+    # Make sure the libpiper .sos are on the path
+    export LD_LIBRARY_PATH=/usr/lib
 
 # A Useful AWS Command
 

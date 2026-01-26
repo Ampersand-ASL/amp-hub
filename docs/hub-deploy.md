@@ -17,17 +17,24 @@ IAM Setup:
 later when you want to run AWS CLI commands.
 
 Create an EC2 instance:
-* Debian 13, arm-64 using t4g-micro instance type.
-* If you don't already have a keypair, create one called "ampersand-1"
-* If necessary, download the private half of the keypair to ~/.ssh/parrot-1.pem so that you can log in using SSH.
+* Debian 13, x86-64 using t3.micro instance type.
+* If you don't already have a keypair, create one called "amp-hub-key"
+* If necessary, download the private half of the keypair to ~/.ssh/amp-hub-key.pem so that you can log in using SSH.
 * Accept the default EBS size of 8G.
-* Associate the two network interfaces setup above.
 * Associate the IAM role that grants administrator access.
 * Wait for the instance to come up.
 
 If not created previously, get the public IPv4 address from the EC2 console. Use SSH to log into the new instance as admin:
 
-    ssh -i ~/.ssh/ampersand-1.pem admin@xxx.xxx.xxx.xxx
+    ssh -i ~/.ssh/amp-hub-key.pem admin@xxx.xxx.xxx.xxx
+
+Or update your ~/.ssh/config file to register the new server and credentials:
+
+    Host amp-hub
+        Hostname amp-hub
+        User admin
+        IdentityFile C:\\Users\\bruce\\.ssh\\amp-hub-key.pem
+        IdentitiesOnly yes
 
 (The rest of the steps are executed on the new EC2 instance,
 all from the admin home directory.)
