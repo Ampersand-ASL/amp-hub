@@ -48,11 +48,15 @@ void service_thread(Log* l) {
     StdClock clock;
 
     RegisterTask registerTask(log, clock);
-    registerTask.configure(getenv("AMP_ASL_REG_URL"), getenv("AMP_NODE0_NUMBER"), 
-        getenv("AMP_NODE0_PASSWORD"), atoi(getenv("AMP_IAX_PORT")));
+    if (getenv("AMP_ASL_REG_URL") != 0) {
+        registerTask.configure(getenv("AMP_ASL_REG_URL"), getenv("AMP_NODE0_NUMBER"), 
+            getenv("AMP_NODE0_PASSWORD"), atoi(getenv("AMP_IAX_PORT")));
+    }
 
     StatsTask statsTask(log, clock, "1.0.0");
-    statsTask.configure(getenv("AMP_ASL_STAT_URL"), getenv("AMP_NODE0_NUMBER"));
+    if (getenv("AMP_ASL_STAT_URL") != 0) {
+        statsTask.configure(getenv("AMP_ASL_STAT_URL"), getenv("AMP_NODE0_NUMBER"));
+    }
 
     // Sleep waiting to change real-time status
     sleep(10);

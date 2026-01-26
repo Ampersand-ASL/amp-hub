@@ -1,0 +1,21 @@
+# Install in: /lib/systemd/system/amp-hub.service:
+[Unit]
+Description=Ampersand Hub Service
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+User=amp-hub
+EnvironmentFile=/usr/etc/amp-hub.env
+ExecStart=/usr/bin/amp-hub
+WorkingDirectory=/usr/bin
+RestrictRealtime=off
+# Make the process real-time with high priority
+# The + requests higher privileges.
+ExecStartPost=+/bin/sh -c "/usr/bin/chrt --rr -p 50 $MAINPID"
+
+[Install]
+WantedBy=multi-user.target

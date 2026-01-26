@@ -42,11 +42,12 @@ add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/en_US-amy-low.onnx ${CMAKE
 )
 add_custom_target(piper_voice DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/en_US-amy-low.onnx ${CMAKE_CURRENT_BINARY_DIR}/en_US-amy-low.onnx.json)
 
-# ----- ASL Hub ---------------------------------------------------------------
+# ----- AMP Hub ---------------------------------------------------------------
 
-add_executable(asl-hub
+add_executable(amp-hub
   src/main.cpp
   src/service-thread.cpp
+  src/NumberAuthorizerStd.cpp
   amp-core/src/EventLoop.cpp
   amp-core/src/Message.cpp
   amp-core/src/Line.cpp
@@ -92,37 +93,37 @@ add_executable(asl-hub
   ed25519/src/sha512.c
   ed25519/src/verify.c
 )
-add_dependencies(asl-hub libpiper_untar)
-add_dependencies(asl-hub piper_voice)
+add_dependencies(amp-hub libpiper_untar)
+add_dependencies(amp-hub piper_voice)
 
-target_include_directories(asl-hub PRIVATE src)
-target_include_directories(asl-hub PRIVATE include)
-target_include_directories(asl-hub PRIVATE kc1fsz-tools-cpp/include)
-target_include_directories(asl-hub PRIVATE itu-g711-codec/src)
-target_include_directories(asl-hub PRIVATE cmsis-dsp-mock/include)
-target_include_directories(asl-hub PRIVATE ed25519/src)
-target_include_directories(asl-hub PRIVATE amp-core/include)
-target_include_directories(asl-hub PRIVATE cpp-httplib)
-target_include_directories(asl-hub PRIVATE json/include)
+target_include_directories(amp-hub PRIVATE src)
+target_include_directories(amp-hub PRIVATE include)
+target_include_directories(amp-hub PRIVATE kc1fsz-tools-cpp/include)
+target_include_directories(amp-hub PRIVATE itu-g711-codec/src)
+target_include_directories(amp-hub PRIVATE cmsis-dsp-mock/include)
+target_include_directories(amp-hub PRIVATE ed25519/src)
+target_include_directories(amp-hub PRIVATE amp-core/include)
+target_include_directories(amp-hub PRIVATE cpp-httplib)
+target_include_directories(amp-hub PRIVATE json/include)
 
 # The untared libpiper
-target_include_directories(asl-hub PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/libpiper-${CMAKE_HOST_SYSTEM_PROCESSOR}/include)
+target_include_directories(amp-hub PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/libpiper-${CMAKE_HOST_SYSTEM_PROCESSOR}/include)
 # TODO: REMOVE
-target_include_directories(asl-hub PRIVATE amp-core/src)
-target_link_libraries(asl-hub -lcurl)
-target_link_directories(asl-hub PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/libpiper-${CMAKE_HOST_SYSTEM_PROCESSOR})
-target_link_directories(asl-hub PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/libpiper-${CMAKE_HOST_SYSTEM_PROCESSOR}/lib)
-target_link_libraries(asl-hub -lpiper -lonnxruntime)
+target_include_directories(amp-hub PRIVATE amp-core/src)
+target_link_libraries(amp-hub -lcurl)
+target_link_directories(amp-hub PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/libpiper-${CMAKE_HOST_SYSTEM_PROCESSOR})
+target_link_directories(amp-hub PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/libpiper-${CMAKE_HOST_SYSTEM_PROCESSOR}/lib)
+target_link_libraries(amp-hub -lpiper -lonnxruntime)
 
 # Installation 
-install(TARGETS asl-hub RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/bin COMPONENT asl-hub)
-install(FILES etc/asl-hub.env DESTINATION ${CMAKE_INSTALL_PREFIX}/etc COMPONENT asl-hub)
-install(FILES etc/asl-hub.service DESTINATION ${CMAKE_INSTALL_PREFIX}/etc COMPONENT asl-hub)
+install(TARGETS amp-hub RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/bin COMPONENT amp-hub)
+install(FILES etc/amp-hub.env DESTINATION ${CMAKE_INSTALL_PREFIX}/etc COMPONENT amp-hub)
+install(FILES etc/amp-hub.service DESTINATION ${CMAKE_INSTALL_PREFIX}/etc COMPONENT amp-hub)
 # Files needed for Piper TTS
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libpiper-aarch64/libpiper.so DESTINATION ${CMAKE_INSTALL_PREFIX}/lib COMPONENT asl-hub)
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libpiper-aarch64/lib/libonnxruntime.so.1 DESTINATION ${CMAKE_INSTALL_PREFIX}/lib COMPONENT asl-hub)
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libpiper-aarch64/lib/libonnxruntime.so.1.22.0 DESTINATION ${CMAKE_INSTALL_PREFIX}/lib COMPONENT asl-hub)
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/en_US-amy-low.onnx DESTINATION ${CMAKE_INSTALL_PREFIX}/etc COMPONENT asl-hub)
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/en_US-amy-low.onnx.json DESTINATION ${CMAKE_INSTALL_PREFIX}/etc COMPONENT asl-hub)
-install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/libpiper-aarch64/espeak-ng-data DESTINATION ${CMAKE_INSTALL_PREFIX}/etc COMPONENT asl-hub)
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libpiper-aarch64/libpiper.so DESTINATION ${CMAKE_INSTALL_PREFIX}/lib COMPONENT amp-hub)
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libpiper-aarch64/lib/libonnxruntime.so.1 DESTINATION ${CMAKE_INSTALL_PREFIX}/lib COMPONENT amp-hub)
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libpiper-aarch64/lib/libonnxruntime.so.1.22.0 DESTINATION ${CMAKE_INSTALL_PREFIX}/lib COMPONENT amp-hub)
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/en_US-amy-low.onnx DESTINATION ${CMAKE_INSTALL_PREFIX}/etc COMPONENT amp-hub)
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/en_US-amy-low.onnx.json DESTINATION ${CMAKE_INSTALL_PREFIX}/etc COMPONENT amp-hub)
+install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/libpiper-aarch64/espeak-ng-data DESTINATION ${CMAKE_INSTALL_PREFIX}/etc COMPONENT amp-hub)
 

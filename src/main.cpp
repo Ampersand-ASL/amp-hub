@@ -49,8 +49,9 @@
 #include "Poker.h"
 #include "TTSService.h"
 
-// asl-parrot
+// asl-hub
 #include "service-thread.h"
+#include "NumberAuthorizerStd.h"
 
 using namespace std;
 using namespace kc1fsz;
@@ -73,15 +74,6 @@ export AMP_ASL_STAT_URL=http://stats.allstarlink.org/uhandler
 export AMP_ASL_DNS_ROOT=allstarlink.org
 export LD_LIBRARY_PATH=/home/admin/asl-parrot/build/libpiper-aarch64:/home/admin/asl-parrot/build/libpiper-aarch64/lib
 */
-
-// TEMPORARY: Accept all calls
-class CallDestinationValidatorStd : public CallValidator {
-public:
-    virtual bool isNumberAllowed(const char* targetNumber) const {
-        return true;
-    }
-};
-
 static void sigHandler(int sig);
 
 int main(int argc, const char** argv) {
@@ -127,9 +119,10 @@ int main(int argc, const char** argv) {
     router.addRoute(&bridge10, 10);
 
     // Setup the IAX line
-    CallDestinationValidatorStd val;
+    amp::NumberAuthorizerStd destVal(getenv("AMP_NODE0_NUMBER"));
+    amp::NumberAuthorizerStd sourceVal(getenv("AMP_IAX_ALLOWLIST"));
     // IMPORTANT: The directed POKE feature is turned on here!
-    LineIAX2 iax2Channel1(log, traceLog, clock, 1, router, &val, 0, 10);
+    LineIAX2 iax2Channel1(log, traceLog, clock, 1, router, &destVal, &sourceVal, 0, 10);
     router.addRoute(&iax2Channel1, 1);
     //iax2Channel0.setTrace(true);
     iax2Channel1.setPrivateKey(getenv("AMP_PRIVATE_KEY"));
