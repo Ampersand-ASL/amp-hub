@@ -1,9 +1,8 @@
 #!/bin/bash
-VERSION=$AMP_HUB_VERSION
-ARCH=aarch64
-rm -rf /tmp/amp-hub-$VERSION_$ARCH.tar.gz
+rm -rf /tmp/amp-hub_${AMP_HUB_VERSION}_${ARCH}.tar.gz
 cd /tmp
-tar -czf /tmp/amp-hub-$VERSION_$ARCH.tar.gz amp-hub-$VERSION_$ARCH
+tar -czf /tmp/amp-hub_${AMP_HUB_VERSION}_${ARCH}.tar.gz amp-hub_${AMP_HUB_VERSION}_${ARCH}
+
 
 
 

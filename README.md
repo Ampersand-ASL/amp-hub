@@ -6,12 +6,20 @@ by [Bruce MacKinnon KC1FSZ](https://www.qrz.com/db/KC1FSZ).
 
     # Make sure you have all the packages needed to build
     sudo apt install cmake build-essential git xxd libasound2-dev libcurl4-gnutls-dev Libusb-1.0-0-dev
+    export AMP_HUB_VERSION=1.0
+    export ARCH=$(uname -m)
     git clone https://github.com/Ampersand-ASL/amp-hub.git
     cd asl-hub
     git submodule update --init
-    cmake -DCMAKE_INSTALL_PREFIX=/tmp -B build
-    cmake --build build --target asl-hub
-    cmake --install build --component asl-hub
+    cmake -DCMAKE_INSTALL_PREFIX=/tmp/amp-hub_${AMP_HUB_VERSION}_${ARCH} -B build
+    cmake --build build --target amp-hub
+    cmake --install build --component amp-hub
+
+# Making Package
+
+    rm -rf /tmp/amp-hub_${AMP_HUB_VERSION}_${ARCH}.tar.gz
+    cd /tmp
+    tar -czf /tmp/amp-hub_${AMP_HUB_VERSION}_${ARCH}.tar.gz amp-hub_${AMP_HUB_VERSION}_${ARCH}
 
 # Debian Package Notes (NOT WORKING YET)
 
