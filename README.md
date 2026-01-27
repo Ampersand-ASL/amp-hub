@@ -72,11 +72,9 @@ Service Commands:
     export AMP_IAX_ALLOWLIST=1000,672730
     export AMP_IAX_PROTO=IPV4
     export AMP_IAX_PORT=4568
-    export AMP_HTTP_PORT=8080
-    # Not used for private nodes
-    #export AMP_ASL_REG_URL=https://register.allstarlink.org
-    # Not used for private nodes
-    #export AMP_ASL_STAT_URL=http://stats.allstarlink.org/uhandler
+    # (Not used for private nodes)
+    export AMP_ASL_REG_URL=https://register.allstarlink.org
+    export AMP_ASL_STAT_URL=http://stats.allstarlink.org/uhandler
     export AMP_ASL_DNS_BASE=nodes.allstarlink.org
     # Pointer to Piper TTS files (voice and the espeak runtime files)
     export AMP_PIPER_DIR=/usr/etc
