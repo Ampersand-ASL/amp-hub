@@ -88,3 +88,14 @@ Start the Linux service:
 
 ![Security Group](sg1.jpg)
 
+# DTMF Commands
+
+There are a limited number of DTMF commands supported:
+
+| DTMF     | Function                        |
+|----------|---------------------------------|
+| *3nnnnn  | Calls a specific node           |
+| *71      | Disconnects all otubound calls  |
+| *70      | Reports all active calls        |
+
+
