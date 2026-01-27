@@ -118,6 +118,7 @@ int main(int argc, const char** argv) {
         10, 7, 0, 0, 1);
     router.addRoute(&bridge10, 10);
     bridge10.setLocalNodeNumber(getenv("AMP_NODE0_NUMBER"));
+    bridge10.setGreeting(getenv("AMP_NODE0_GREETING"));
 
     // Setup the IAX line
     amp::NumberAuthorizerStd destVal(getenv("AMP_NODE0_NUMBER"));
