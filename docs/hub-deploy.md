@@ -4,8 +4,9 @@ are based on a manual deployment.
 # Things You Need To Deploy
 
 These instructions assume you are starting from nothing except:
+* A server on which to run the hub with suitable network/firewall configuration.
 * The URL of the binary packages (get that from Bruce)
-* The ASL node number and password for the hub node 
+* The ASL node number and password for the hub node.
 
 # Steps To Install (AWS Pre-Install)
 
@@ -39,6 +40,10 @@ Or update your ~/.ssh/config file to register the new server and credentials:
 (The rest of the steps are executed on the new EC2 instance,
 all from the admin home directory.)
 
+# Network Configuration
+
+![Security Group](sg1.jpg)
+
 # Steps To Install
 
 Add the required Linux packages:
@@ -63,10 +68,10 @@ Install the binary package:
 **Before starting the service** make a few adjustments /usr/etc/amp-hub.env file. These
 lines will probably need to change:
 
-    # Add the secrets here:
+    # Your node number
     AMP_NODE0_NUMBER=nnnnn
+    # Add the secrets here:
     AMP_NODE0_PASSWORD=xxxx
-
     # Make sure the IAX (UDP) port is correct:
     AMP_IAX_PORT=4569
 
@@ -81,14 +86,10 @@ Create the Linux service:
 Start the Linux service:
 
     sudo systemctl start amp-hub
-    # Check the log file
+    # Check the log file for errors
     journalctl -u amp-hub -f
 
-# Network Configuration
-
-![Security Group](sg1.jpg)
-
-# DTMF Commands
+# DTMF Commands Supported
 
 There are a limited number of DTMF commands supported:
 
