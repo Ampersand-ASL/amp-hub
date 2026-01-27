@@ -56,7 +56,6 @@ add_executable(amp-hub
   amp-core/src/IAX2Util.cpp
   amp-core/src/RegisterTask.cpp
   amp-core/src/StatsTask.cpp
-  amp-core/src/ManagerTask.cpp
   amp-core/src/RetransmissionBufferStd.cpp
   amp-core/src/Transcoder_G711_ULAW.cpp
   amp-core/src/Transcoder_SLIN_48K.cpp
