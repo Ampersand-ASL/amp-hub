@@ -65,7 +65,7 @@ Install the binary package:
     tar xvf amp-hub-${AMP_HUB_VERSION}-${AMP_ARCH}.tar.gz
     cd amp-hub-${AMP_HUB_VERSION}-${AMP_ARCH}
     # Run this script to perform the install, or just read it and replicate
-    # the steps (not very hard)
+    # the steps (not too complicated)
     ./install.sh
 
 The package links are here if you need them:
@@ -82,12 +82,17 @@ lines will probably need to change:
     # NOTE: Spaces are needed to get the read-back to sound right.
     AMP_NODE0_GREETING="Welcome to node 9 9 9 9 9 9."
     AMP_IAX_PORT=4569
+    # A comma-separated list of nodes that are allowed to connect, if 
+    # restrictions are desired:
+    #AMP_IAX_ALLOWLIST=672731,581610,581611,581612,581613
     # ===========================================================
 
 Start the Linux service:
 
     sudo systemctl start amp-hub
-    # Check the log file for errors
+
+Check the log file for errors:
+
     journalctl -u amp-hub -f
 
 # DTMF Commands Supported
