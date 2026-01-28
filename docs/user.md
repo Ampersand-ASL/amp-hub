@@ -17,6 +17,10 @@ Network setup:
 * Create a Security Groups that allows IAX/SSH inbound.
 * If desired, create an Elastic IP so that the public IPv4 address stays fixed.
 
+Here's what the firewall rules look like:
+
+![Security Group](sg1.jpg)
+
 IAM Setup:
 * Create an IAM role for EC2 that grants `AdministratorAccess`. This may be useful
 later when you want to run AWS CLI commands.
@@ -44,10 +48,6 @@ Or update your ~/.ssh/config file to register the new server and credentials:
 
 (The rest of the steps are executed on the new EC2 instance,
 all from the admin home directory.)
-
-# Network Configuration
-
-![Security Group](sg1.jpg)
 
 # Steps To Install
 
