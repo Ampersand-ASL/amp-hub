@@ -5,13 +5,16 @@ are based on a manual deployment.
 
 These instructions assume you are starting from nothing except:
 * A server on which to run the hub with suitable network/firewall configuration.
-* The URL of the binary packages (get that from Bruce)
+* A user ID on the server that has sudo access.
+* The URL of the binary package (listed below).
 * The ASL node number and password for the hub node.
 
 # Steps To Install (AWS Pre-Install)
 
+NOTE: These steps will be different for other cloud providers.
+
 Network setup:
-* Create a Security Groups that allows IAX/SSH inbound 
+* Create a Security Groups that allows IAX/SSH inbound.
 
 IAM Setup:
 * Create an IAM role for EC2 that grants `AdministratorAccess`. This may be useful
@@ -54,34 +57,26 @@ Add the required Linux packages:
 
 Install the binary package:
 
-    export ARCH=x86_64
+    export AMP_HUB_VERSION=1.0
+    export AMP_ARCH=$(uname -m)
     wget https://mackinnon.info/ampersand/releases/amp-hub_1.0-1_${ARCH}.tar.gz
-    gunzip amp-hub_1.0-1_${ARCH}.tar.gz
-    mkdir -p /usr/bin
-    mkdir -p /usr/lib
-    mkdir -p /usr/etc
-    cd amp-hub-1.0-1_${ARCH}
-    cp -r bin /usr
-    cp -r lib /usr
-    cp -r etc /usr
+    tar xvf amp-hub-${AMP_HUB_VERSION}-${AMP_ARCH}.tar.gz
+    cd amp-hub-${AMP_HUB_VERSION}-${AMP_ARCH}
+    # Run this script to perform the install, or just read it and replicate
+    # the steps (not very hard)
+    ./install.sh
 
 **Before starting the service** make a few adjustments /usr/etc/amp-hub.env file. These
 lines will probably need to change:
 
-    # Your node number
-    AMP_NODE0_NUMBER=nnnnn
-    # Add the secrets here:
-    AMP_NODE0_PASSWORD=xxxx
-    # Make sure the IAX (UDP) port is correct:
+    # ===========================================================
+    # Configure these settings before starting your node.
+    AMP_NODE0_NUMBER=999999
+    AMP_NODE0_PASSWORD=xxx
+    # NOTE: Spaces are needed to get the read-back to sound right.
+    AMP_NODE0_GREETING="Welcome to node 9 9 9 9 9 9."
     AMP_IAX_PORT=4569
-
-Create the Linux service:
-    
-    # The service runs as amp-hub
-    sudo useradd -r -s /sbin/nologin amp-hub
-    # systemd setup
-    sudo cp /usr/etc/amp-hub.service /lib/systemd/system
-    sudo systemctl enable amp-hub
+    # ===========================================================
 
 Start the Linux service:
 
@@ -91,7 +86,7 @@ Start the Linux service:
 
 # DTMF Commands Supported
 
-There are a limited number of DTMF commands supported:
+There are a limited number of DTMF commands supported at the moment:
 
 | DTMF     | Function                        |
 |----------|---------------------------------|

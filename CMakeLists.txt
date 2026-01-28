@@ -116,6 +116,7 @@ target_link_libraries(amp-hub -lpiper -lonnxruntime)
 
 # Installation 
 install(TARGETS amp-hub RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/bin COMPONENT amp-hub)
+install(FILES scripts/install.sh DESTINATION ${CMAKE_INSTALL_PREFIX} COMPONENT amp-hub)
 install(FILES etc/amp-hub.env DESTINATION ${CMAKE_INSTALL_PREFIX}/etc COMPONENT amp-hub)
 install(FILES etc/amp-hub.service DESTINATION ${CMAKE_INSTALL_PREFIX}/etc COMPONENT amp-hub)
 # Files needed for Piper TTS

@@ -7,55 +7,23 @@ by [Bruce MacKinnon KC1FSZ](https://www.qrz.com/db/KC1FSZ).
     # Make sure you have all the packages needed to build
     sudo apt -y install cmake build-essential git xxd libasound2-dev libcurl4-gnutls-dev Libusb-1.0-0-dev emacs-nox
     export AMP_HUB_VERSION=1.0
-    export ARCH=$(uname -m)
+    export AMP_ARCH=$(uname -m)
     git clone https://github.com/Ampersand-ASL/amp-hub.git
     cd amp-hub
     git submodule update --init
-    cmake -DCMAKE_INSTALL_PREFIX=/tmp/amp-hub_${AMP_HUB_VERSION}_${ARCH} -B build
+    cmake -DCMAKE_INSTALL_PREFIX=/tmp/amp-hub-${AMP_HUB_VERSION}-${AMP_ARCH} -B build
     cmake --build build --target amp-hub
     cmake --install build --component amp-hub
 
 # Making Package
 
-    rm -rf /tmp/amp-hub_${AMP_HUB_VERSION}_${ARCH}.tar.gz
+    rm -rf /tmp/amp-hub-${AMP_HUB_VERSION}-${AMP_ARCH}.tar.gz
     cd /tmp
-    tar -czf /tmp/amp-hub_${AMP_HUB_VERSION}_${ARCH}.tar.gz amp-hub_${AMP_HUB_VERSION}_${ARCH}
+    chmod a+x amp-hub-${AMP_HUB_VERSION}-${AMP_ARCH}/install.sh
+    tar -czf /tmp/amp-hub-${AMP_HUB_VERSION}-${AMP_ARCH}.tar.gz amp-hub-${AMP_HUB_VERSION}-${AMP_ARCH}
+    # Push the package to S3
 
-# Debian Package Notes (NOT WORKING YET)
-
-Making the package for the asl-parrot:
-
-    # Move the version number forward in src/main-parrot.cpp
-    # Update the change log (new entries at top)
-    sudo apt install debmake debhelper
-    export AMP_HUB_VERSION=1.0
-    cd amp-hub
-    scripts/make-source-tar-hub.sh
-    cd /tmp
-    tar -xzmf amp-hub-$AMP_HUB_VERSION.tar.gz
-    cd amp-hub-$AMP_HUB_VERSION
-    debmake
-    debuild
-    # Move the package to the distribution area
-    cp /tmp/amp-hub_$AMP_HUB_VERSION-1_arm64.deb (distribution area)
-
-Looking at the contents:
-
-    dpkg -c amp-hub_$AMP_HUB_VERSION-1_arm64.deb 
-
-Installing from a .deb file:
-
-    wget https://mackinnon.info/ampersand/releases/amp-hub_1.0-1_arm64.deb
-    sudo apt install ./amp-hub_1.0-1_arm64.deb
-
-_(There may be a "Notice" displayed during the install related to a permission issue. This
-can safely be ignored.)_
-
-Uninstall:
-
-    sudo apt remove ./amp-hub_1.0-1_arm64.deb
-
-Service Commands:
+# Service Commands
 
     sudo systemctl enable amp-hub
     sudo systemctl start amp-hub
@@ -81,9 +49,3 @@ Service Commands:
     # Make sure the libpiper .sos are on the path
     export LD_LIBRARY_PATH=/usr/lib
 
-# A Useful AWS Command
-
-This command could be used to determine the private IP address of the 
-diagnostic interface:
-
-    aws ec2 describe-network-interfaces
