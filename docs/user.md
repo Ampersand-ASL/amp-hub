@@ -55,11 +55,11 @@ Add the required Linux packages:
 
     sudo apt update
     sudo apt -y upgrade
-    sudo apt -y install net-tools wget 
+    sudo apt -y install net-tools wget libcurl4-gnutls-dev
 
 Install the binary package:
 
-    export AMP_HUB_VERSION=20280128
+    export AMP_HUB_VERSION=20260128
     export AMP_ARCH=$(uname -m)
     wget https://ampersand-asl.s3.us-west-1.amazonaws.com/releases/amp-hub-${AMP_HUB_VERSION}-${AMP_ARCH}.tar.gz
     tar xvf amp-hub-${AMP_HUB_VERSION}-${AMP_ARCH}.tar.gz
