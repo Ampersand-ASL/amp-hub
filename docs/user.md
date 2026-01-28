@@ -15,6 +15,7 @@ NOTE: These steps will be different for other cloud providers.
 
 Network setup:
 * Create a Security Groups that allows IAX/SSH inbound.
+* If desired, create an Elastic IP so that the public IPv4 address stays fixed.
 
 IAM Setup:
 * Create an IAM role for EC2 that grants `AdministratorAccess`. This may be useful
@@ -26,7 +27,8 @@ Create an EC2 instance:
 * If necessary, download the private half of the keypair to ~/.ssh/amp-hub-key.pem so that you can log in using SSH.
 * Accept the default EBS size of 8G.
 * Associate the IAM role that grants administrator access.
-* Wait for the instance to come up.
+* Associate the Elastic IP with the instance.
+* Start and wait for the instance to come up.
 
 If not created previously, get the public IPv4 address from the EC2 console. Use SSH to log into the new instance as admin:
 
@@ -57,14 +59,18 @@ Add the required Linux packages:
 
 Install the binary package:
 
-    export AMP_HUB_VERSION=1.0
+    export AMP_HUB_VERSION=20280128
     export AMP_ARCH=$(uname -m)
-    wget https://ampersand-asl.s3.us-west-1.amazonaws.com/releases/amp-hub-20260128-x86_64.tar.gz
+    wget https://ampersand-asl.s3.us-west-1.amazonaws.com/releases/amp-hub-${AMP_HUB_VERSION}-${AMP_ARCH}.tar.gz
     tar xvf amp-hub-${AMP_HUB_VERSION}-${AMP_ARCH}.tar.gz
     cd amp-hub-${AMP_HUB_VERSION}-${AMP_ARCH}
     # Run this script to perform the install, or just read it and replicate
     # the steps (not very hard)
     ./install.sh
+
+The package links are here if you need them:
+
+* [https://ampersand-asl.s3.us-west-1.amazonaws.com/releases/amp-hub-20260128-x86_64.tar.gz](https://ampersand-asl.s3.us-west-1.amazonaws.com/releases/amp-hub-20260128-x86_64.tar.gz)
 
 **Before starting the service** make a few adjustments /usr/etc/amp-hub.env file. These
 lines will probably need to change:
