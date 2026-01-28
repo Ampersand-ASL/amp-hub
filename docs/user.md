@@ -56,6 +56,9 @@ all from the admin home directory.)
 
 # Steps To Install
 
+Once you have a running Debian server these are the steps to install the 
+software. 
+
 Add the required Linux packages:
 
     sudo apt update
