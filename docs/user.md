@@ -59,7 +59,7 @@ Install the binary package:
 
     export AMP_HUB_VERSION=1.0
     export AMP_ARCH=$(uname -m)
-    wget https://mackinnon.info/ampersand/releases/amp-hub_1.0-1_${ARCH}.tar.gz
+    wget https://ampersand-asl.s3.us-west-1.amazonaws.com/releases/amp-hub-20260128-x86_64.tar.gz
     tar xvf amp-hub-${AMP_HUB_VERSION}-${AMP_ARCH}.tar.gz
     cd amp-hub-${AMP_HUB_VERSION}-${AMP_ARCH}
     # Run this script to perform the install, or just read it and replicate

@@ -6,7 +6,7 @@ by [Bruce MacKinnon KC1FSZ](https://www.qrz.com/db/KC1FSZ).
 
     # Make sure you have all the packages needed to build
     sudo apt -y install cmake build-essential git xxd libasound2-dev libcurl4-gnutls-dev Libusb-1.0-0-dev emacs-nox
-    export AMP_HUB_VERSION=1.0
+    export AMP_HUB_VERSION=20260128
     export AMP_ARCH=$(uname -m)
     git clone https://github.com/Ampersand-ASL/amp-hub.git
     cd amp-hub
@@ -22,6 +22,8 @@ by [Bruce MacKinnon KC1FSZ](https://www.qrz.com/db/KC1FSZ).
     chmod a+x amp-hub-${AMP_HUB_VERSION}-${AMP_ARCH}/install.sh
     tar -czf /tmp/amp-hub-${AMP_HUB_VERSION}-${AMP_ARCH}.tar.gz amp-hub-${AMP_HUB_VERSION}-${AMP_ARCH}
     # Push the package to S3
+    scp admin@amp-hub:/tmp/amp-hub-${AMP_HUB_VERSION}-${AMP_ARCH}.tar.gz .
+    # etc ..
 
 # Service Commands
 
