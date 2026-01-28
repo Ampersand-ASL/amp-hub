@@ -80,8 +80,9 @@ The package links are here if you need them:
 
 * [https://ampersand-asl.s3.us-west-1.amazonaws.com/releases/amp-hub-20260128-x86_64.tar.gz](https://ampersand-asl.s3.us-west-1.amazonaws.com/releases/amp-hub-20260128-x86_64.tar.gz)
 
-**Before starting the service** make a few adjustments /usr/etc/amp-hub.env file. These
-lines will probably need to change:
+**Before starting the service** make a few adjustments /usr/etc/amp-hub.env file. This
+file contains the settings of the environment variables that the server needs to operate.
+These lines will probably need to change:
 
     # ===========================================================
     # Configure these settings before starting your node.
