@@ -1,5 +1,10 @@
-Instructions for deploying the Ampersand Hub on AWS. These instructions
+These are the instructions for deploying the Ampersand Hub on AWS. These instructions
 are based on a manual deployment. 
+
+Send comments/questions to Bruce MacKinnon (KC1FSZ) using the e-mail address in [QRZ](https://www.qrz.com/db/KC1FSZ).
+
+This is experimental work that explores the potential of ASL linking 
+without the use of the Asterisk PBX system. [Project documentation is here](https://mackinnon.info/ampersand/). 
 
 # Things You Need To Deploy
 
