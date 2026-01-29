@@ -56,7 +56,7 @@
 using namespace std;
 using namespace kc1fsz;
 
-static const char* VERSION = "20260126.0";
+static const char* VERSION = "20260126.1";
 
 // TODO: NEED MORE RESEARCH ON THIS
 static const char* LOCAL_USER = "radio";
