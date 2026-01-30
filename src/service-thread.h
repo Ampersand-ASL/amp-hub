@@ -16,8 +16,10 @@
  */
 #pragma once
 
+#include <string>
+
 #include "kc1fsz-tools/Log.h"
+#include "kc1fsz-tools/copyableatomic.h"
 
-void service_thread(kc1fsz::Log* l);
-
-
+void service_thread(kc1fsz::Log* l, const char* version, 
+    copyableatomic<std::string>* pokeAddr);

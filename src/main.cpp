@@ -37,6 +37,7 @@
 #include "kc1fsz-tools/threadsafequeue.h"
 #include "kc1fsz-tools/threadsafequeue2.h"
 #include "kc1fsz-tools/linux/MTLog.h"
+#include "kc1fsz-tools/copyableatomic.h"
 
 // amp-core
 #include "NullLog.h"
@@ -48,6 +49,7 @@
 #include "MultiRouter.h"
 #include "Poker.h"
 #include "TTSService.h"
+#include "TimerTask.h"
 
 // asl-hub
 #include "service-thread.h"
@@ -96,9 +98,13 @@ int main(int argc, const char** argv) {
         return -1;
     }
 
+    // This is a shared string that is used to pass the poke address from
+    // the service thread to the main thread.
+    copyableatomic<std::string> pokeAddr;
+
     // Get the service thread running. This handles registration,
     // status, and the monitor.
-    std::thread serviceThread(service_thread, &log);
+    std::thread serviceThread(service_thread, &log, VERSION, &pokeAddr);
 
     // Setup the message router
     threadsafequeue2<Message> respQueue;
@@ -144,8 +150,18 @@ int main(int argc, const char** argv) {
     // Open up the IAX2 network connection
     iax2Channel1.open(addrFamily, atoi(getenv("AMP_IAX_PORT")), LOCAL_USER);
 
+    // Setup a timer that takes the poke address generated from the service
+    // thread and puts it into the IAX line.
+    TimerTask timer1(log, clock, 10, 
+        [&log, &pokeAddr, &iax2Channel1]() {
+            std::string addr = pokeAddr.getCopy();
+            if (!addr.empty())
+                iax2Channel1.setPokeAddr(addr.c_str());
+        }
+    );
+
     // Main loop        
-    Runnable2* tasks2[] = { &iax2Channel1, &bridge10, &router };
+    Runnable2* tasks2[] = { &iax2Channel1, &bridge10, &router, &timer1 };
     EventLoop::run(log, clock, 0, 0, tasks2, std::size(tasks2), nullptr, false);
 
     return 0;
