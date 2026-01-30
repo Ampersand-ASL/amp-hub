@@ -149,7 +149,9 @@ int main(int argc, const char** argv) {
         strcmp(getenv("AMP_IAX_PROTO"), "IPV6") == 0 ? AF_INET6 : AF_INET;
     // Open up the IAX2 network connection
     iax2Channel1.open(addrFamily, atoi(getenv("AMP_IAX_PORT")), LOCAL_USER);
-
+    iax2Channel1.setPokeEnabled(true);
+    iax2Channel1.setDirectedPokeEnabled(true);
+    
     // Setup a timer that takes the poke address generated from the service
     // thread and puts it into the IAX line.
     TimerTask timer1(log, clock, 10, 
