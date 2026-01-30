@@ -107,6 +107,6 @@ void service_thread(Log* l, const char* version,
     );
 
     // Main loop        
-    Runnable2* tasks2[] = { &registerTask };
+    Runnable2* tasks2[] = { &registerTask, &timer1 };
     EventLoop::run(log, clock, 0, 0, tasks2, std::size(tasks2));
 }
