@@ -34,13 +34,17 @@ bool NumberAuthorizerStd::isAuthorized(const char* nodeNumber) const {
 }
 
 NumberAuthorizerStd::NumberAuthorizerStd(const char* numberList) {
-    // Parse comma-delimited list
-    string s(numberList);
-    stringstream ss(s);
-    string token;
-    while (std::getline(ss, token, ',')) {
-        trim(token);
-        _numberList.push_back(token);
+    if (numberList) {
+        // Parse comma-delimited list
+        string s(numberList);
+        stringstream ss(s);
+        string token;
+        while (std::getline(ss, token, ',')) {
+            trim(token);
+            _numberList.push_back(token);
+        }
+    } else {
+        _numberList.clear();
     }
 }
 
