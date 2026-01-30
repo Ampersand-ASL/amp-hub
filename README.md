@@ -20,6 +20,7 @@ by [Bruce MacKinnon KC1FSZ](https://www.qrz.com/db/KC1FSZ).
     rm -rf /tmp/amp-hub-${AMP_HUB_VERSION}-${AMP_ARCH}.tar.gz
     cd /tmp
     chmod a+x amp-hub-${AMP_HUB_VERSION}-${AMP_ARCH}/install.sh
+    chmod a+x amp-hub-${AMP_HUB_VERSION}-${AMP_ARCH}/upgrade.sh
     tar -czf /tmp/amp-hub-${AMP_HUB_VERSION}-${AMP_ARCH}.tar.gz amp-hub-${AMP_HUB_VERSION}-${AMP_ARCH}
     # Push the package to S3
     scp admin@amp-hub:/tmp/amp-hub-${AMP_HUB_VERSION}-${AMP_ARCH}.tar.gz .
