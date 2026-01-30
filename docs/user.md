@@ -18,9 +18,9 @@ These instructions assume you are starting from nothing except:
 
 # Steps to Upgrade
 
-Most of the time the ugprade process only involves updating the `amp-hub`
+Most of the time the upgrade process only involves updating the `amp-hub`
 binary. As such, a shorter process can be used. **This will not touch
-your /usr/etc/amp-hub.env so the previous configuraiton should remain.** 
+your /usr/etc/amp-hub.env so the previous configuration should remain.** 
 
     export AMP_HUB_VERSION=20260130
     export AMP_ARCH=$(uname -m)
@@ -128,6 +128,6 @@ There are a limited number of DTMF commands supported at the moment:
 | DTMF     | Function                        |
 |----------|---------------------------------|
 | *3nnnnn  | Calls a specific node           |
-| *71      | Disconnects all otubound calls  |
+| *71      | Disconnects all outbound calls  |
 | *70      | Reports all active calls        |
 
