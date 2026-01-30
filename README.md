@@ -2,6 +2,10 @@ This repo builds the Ampersand Hub which is based on
 the [Ampersand Linking Project](https://github.com/Ampersand-ASL)
 by [Bruce MacKinnon KC1FSZ](https://www.qrz.com/db/KC1FSZ).
 
+> [!Important]
+>
+> If you're looking for the install/user guide [it can be found here](docs/user.md).
+
 # Building AMP Hub With Install
 
     # Make sure you have all the packages needed to build
