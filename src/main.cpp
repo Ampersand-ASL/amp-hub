@@ -151,6 +151,7 @@ int main(int argc, const char** argv) {
     iax2Channel1.open(addrFamily, atoi(getenv("AMP_IAX_PORT")), LOCAL_USER);
     iax2Channel1.setPokeEnabled(true);
     iax2Channel1.setDirectedPokeEnabled(true);
+    iax2Channel1.setPokeNodeNumber(getenv("AMP_NODE0_NUMBER"));
     
     // Setup a timer that takes the poke address generated from the service
     // thread and puts it into the IAX line.
