@@ -1,3 +1,5 @@
+# Ampersand Hub Installation/User Instructions
+
 These are the instructions for deploying the Ampersand Hub on AWS. These instructions
 are based on a manual deployment. 
 
@@ -103,12 +105,12 @@ These lines will probably need to change:
     # Configure these settings before starting your node.
     AMP_NODE0_NUMBER=999999
     AMP_NODE0_PASSWORD=xxx
-    # NOTE: Spaces are needed to get the read-back to sound right.
+    # NOTE: Spaces are needed to get the numeric read-back to sound right.
     AMP_NODE0_GREETING="Welcome to node 9 9 9 9 9 9."
     AMP_IAX_PORT=4569
     # A comma-separated list of nodes that are allowed to connect, if 
     # restrictions are desired:
-    #AMP_IAX_ALLOWLIST=672731,581610,581611,581612,581613
+    AMP_IAX_ALLOWLIST=672731,581610,581611,581612,581613
     # ===========================================================
 
 Start the Linux service:
@@ -128,5 +130,4 @@ There are a limited number of DTMF commands supported at the moment:
 | *3nnnnn  | Calls a specific node           |
 | *71      | Disconnects all otubound calls  |
 | *70      | Reports all active calls        |
-
 
