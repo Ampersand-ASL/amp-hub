@@ -14,6 +14,21 @@ These instructions assume you are starting from nothing except:
 * The URL of the binary package (listed below).
 * The ASL node number and password for the hub node.
 
+# Steps to Upgrade
+
+Most of the time the ugprade process only involves updating the `amp-hub`
+binary. As such, a shorter process can be used. **This will not touch
+your /usr/etc/amp-hub.env so the previous configuraiton should remain.** 
+
+    export AMP_HUB_VERSION=20260130
+    export AMP_ARCH=$(uname -m)
+    wget https://ampersand-asl.s3.us-west-1.amazonaws.com/releases/amp-hub-${AMP_HUB_VERSION}-${AMP_ARCH}.tar.gz
+    tar xvf amp-hub-${AMP_HUB_VERSION}-${AMP_ARCH}.tar.gz
+    cd amp-hub-${AMP_HUB_VERSION}-${AMP_ARCH}
+    # Run this script to perform the upgrade, or just read it and replicate
+    # the steps (not too complicated)
+    ./upgrade.sh
+
 # Steps To Install (AWS Pre-Install)
 
 NOTE: These steps will be different for other cloud providers.
@@ -67,7 +82,7 @@ Add the required Linux packages:
 
 Install the binary package:
 
-    export AMP_HUB_VERSION=20260128
+    export AMP_HUB_VERSION=20260130
     export AMP_ARCH=$(uname -m)
     wget https://ampersand-asl.s3.us-west-1.amazonaws.com/releases/amp-hub-${AMP_HUB_VERSION}-${AMP_ARCH}.tar.gz
     tar xvf amp-hub-${AMP_HUB_VERSION}-${AMP_ARCH}.tar.gz
@@ -78,7 +93,7 @@ Install the binary package:
 
 The package links are here if you need them:
 
-* [https://ampersand-asl.s3.us-west-1.amazonaws.com/releases/amp-hub-20260128-x86_64.tar.gz](https://ampersand-asl.s3.us-west-1.amazonaws.com/releases/amp-hub-20260128-x86_64.tar.gz)
+* [https://ampersand-asl.s3.us-west-1.amazonaws.com/releases/amp-hub-20260130-x86_64.tar.gz](https://ampersand-asl.s3.us-west-1.amazonaws.com/releases/amp-hub-20260130-x86_64.tar.gz)
 
 **Before starting the service** make a few adjustments /usr/etc/amp-hub.env file. This
 file contains the settings of the environment variables that the server needs to operate.

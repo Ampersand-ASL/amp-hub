@@ -8,5 +8,7 @@ connections. This is particularly important to prevent conference participants
 that initiated the connect/disconnect operation will receive the announcement.
 - Changed shape of low-pass filters used for decimation/interpolation
 to improve audio quality. See https://mackinnon.info/ampersand/#improvements-on-app_rpt-resampling-filter
+- Improved logging around registration errors
+
 
 
