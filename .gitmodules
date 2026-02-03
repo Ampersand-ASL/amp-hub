@@ -16,3 +16,6 @@
 [submodule "ed25519"]
 	path = ed25519
 	url = https://github.com/orlp/ed25519.git
+[submodule "json"]
+	path = json
+	url = https://github.com/nlohmann/json.git
