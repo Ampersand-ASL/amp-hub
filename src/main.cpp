@@ -58,24 +58,11 @@
 using namespace std;
 using namespace kc1fsz;
 
-static const char* VERSION = "20260130.0";
+static const char* VERSION = "20260202.0";
 
 // TODO: NEED MORE RESEARCH ON THIS
 static const char* LOCAL_USER = "radio";
 
-/*
-Development:
-export AMP_NODE0_NUMBER=nnnnn
-export AMP_NODE0_PASSWORD=xxxxx
-export AMP_NODE0_MGR_PORT=5039
-export AMP_IAX_PROTO=IPV4
-export AMP_IAX_PORT=4569
-export AMP_IAX_AUTHMODE=OPEN
-export AMP_ASL_REG_URL=https://register.allstarlink.org
-export AMP_ASL_STAT_URL=http://stats.allstarlink.org/uhandler
-export AMP_ASL_DNS_ROOT=allstarlink.org
-export LD_LIBRARY_PATH=/home/admin/asl-parrot/build/libpiper-aarch64:/home/admin/asl-parrot/build/libpiper-aarch64/lib
-*/
 static void sigHandler(int sig);
 
 int main(int argc, const char** argv) {
