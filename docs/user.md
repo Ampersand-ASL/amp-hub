@@ -16,6 +16,9 @@ These instructions assume you are starting from nothing except:
 * The URL of the binary package (listed below).
 * The ASL node number and password for the hub node.
 
+Latest packages: 
+* [https://ampersand-asl.s3.us-west-1.amazonaws.com/releases/amp-hub-20260204-x86_64.tar.gz](https://ampersand-asl.s3.us-west-1.amazonaws.com/releases/amp-hub-20260204-x86_64.tar.gz)
+
 # Steps to Upgrade
 
 Most of the time the upgrade process only involves updating the `amp-hub`
