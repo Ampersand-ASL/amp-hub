@@ -11,7 +11,7 @@ by [Bruce MacKinnon KC1FSZ](https://www.qrz.com/db/KC1FSZ).
     # Make sure you have all the packages needed to build
     sudo apt -y install cmake build-essential git xxd libasound2-dev libcurl4-gnutls-dev Libusb-1.0-0-dev emacs-nox
     # Setup release-specific variable:
-    export AMP_HUB_VERSION=20260130
+    export AMP_HUB_VERSION=20260204
     export AMP_ARCH=$(uname -m)
     git clone https://github.com/Ampersand-ASL/amp-hub.git
     cd amp-hub
@@ -23,7 +23,7 @@ by [Bruce MacKinnon KC1FSZ](https://www.qrz.com/db/KC1FSZ).
 # Making the Deployment Package
 
     # Review the release numbers in docs/user.md and update as needed.
-    #
+    # 
     # Build the .tar.gz
     rm -rf /tmp/amp-hub-${AMP_HUB_VERSION}-${AMP_ARCH}.tar.gz
     cd /tmp

@@ -8,6 +8,8 @@ Send comments/questions to Bruce MacKinnon (KC1FSZ) using the e-mail address in 
 This is experimental work that explores the potential of ASL linking 
 without the use of the Asterisk PBX system. [Project documentation is here](https://mackinnon.info/ampersand/). 
 
+Thanks to Frank (KG9M) for his assitance with design and testing.
+
 # Things You Need To Deploy
 
 These instructions assume you are starting from nothing except:
@@ -22,7 +24,7 @@ Most of the time the upgrade process only involves updating the `amp-hub`
 binary. As such, a shorter process can be used. **This will not touch
 your /usr/etc/amp-hub.env so the previous configuration should remain.** 
 
-    export AMP_HUB_VERSION=20260130
+    export AMP_HUB_VERSION=20260204
     export AMP_ARCH=$(uname -m)
     wget https://ampersand-asl.s3.us-west-1.amazonaws.com/releases/amp-hub-${AMP_HUB_VERSION}-${AMP_ARCH}.tar.gz
     tar xvf amp-hub-${AMP_HUB_VERSION}-${AMP_ARCH}.tar.gz
@@ -84,7 +86,7 @@ Add the required Linux packages:
 
 Install the binary package:
 
-    export AMP_HUB_VERSION=20260130
+    export AMP_HUB_VERSION=20260204
     export AMP_ARCH=$(uname -m)
     wget https://ampersand-asl.s3.us-west-1.amazonaws.com/releases/amp-hub-${AMP_HUB_VERSION}-${AMP_ARCH}.tar.gz
     tar xvf amp-hub-${AMP_HUB_VERSION}-${AMP_ARCH}.tar.gz

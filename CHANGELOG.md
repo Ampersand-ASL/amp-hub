@@ -1,5 +1,18 @@
 # Amp Hub Change Log
 
+## 2026-04-04
+
+- More work cleaning up excessive announcements.
+- An announcement has been added when a connection fails. This will 
+only be directed th the originator of the DTMF connection request
+and anyone who has entered DTMF commands within the last 30 seconds.
+- Talker ID feature has been added to pass call sign/name through
+the network. 
+- Updated the coefficients on the various low-pass filters to improve
+audio performance.
+- DTMF *76 will put the hub channel into parrot mode (not audible to 
+any other connections)
+
 ## 2026-01-30
 
 - Per Frank (KG9M), not announcing connect/disconnect events to non-initiating
