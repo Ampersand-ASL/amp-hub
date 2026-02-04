@@ -8,8 +8,6 @@ Send comments/questions to Bruce MacKinnon (KC1FSZ) using the e-mail address in 
 This is experimental work that explores the potential of ASL linking 
 without the use of the Asterisk PBX system. [Project documentation is here](https://mackinnon.info/ampersand/). 
 
-Thanks to Frank (KG9M) for his assitance with design and testing.
-
 # Things You Need To Deploy
 
 These instructions assume you are starting from nothing except:

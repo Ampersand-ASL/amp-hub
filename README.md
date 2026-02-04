@@ -6,6 +6,8 @@ by [Bruce MacKinnon KC1FSZ](https://www.qrz.com/db/KC1FSZ).
 >
 > If you're looking for the install/user guide [it can be found here](docs/user.md).
 
+Thanks to Frank (KG9M) for his assistance with design and testing.
+
 # Building AMP Hub With Install
 
     # Make sure you have all the packages needed to build
