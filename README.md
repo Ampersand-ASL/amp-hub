@@ -8,7 +8,9 @@ Thanks to Frank (KG9M) for his assistance with design and testing.
 >
 > If you're looking for the install/user guide [it can be found here](docs/user.md).
 
-# Building AMP Hub With Install
+# Developer Notes
+
+## Building AMP Hub With Install
 
     # Make sure you have all the packages needed to build
     sudo apt -y install cmake build-essential git xxd libasound2-dev libcurl4-gnutls-dev Libusb-1.0-0-dev emacs-nox
@@ -22,7 +24,7 @@ Thanks to Frank (KG9M) for his assistance with design and testing.
     cmake --build build --target amp-hub
     cmake --install build --component amp-hub
 
-# Making the Deployment Package
+## Making the Deployment Package
 
     # Review the release numbers in docs/user.md and update as needed.
     # 
@@ -36,13 +38,13 @@ Thanks to Frank (KG9M) for his assistance with design and testing.
     scp admin@amp-hub:/tmp/amp-hub-${AMP_HUB_VERSION}-${AMP_ARCH}.tar.gz .
     # etc ..
 
-# Service Commands
+## Service Commands
 
     sudo systemctl enable amp-hub
     sudo systemctl start amp-hub
     journalctl -u amp-hub -f
 
-# Environment Variables Used At Runtime
+## Environment Variables Used At Runtime
 
     export AMP_NODE0_NUMBER=672731
     export AMP_NODE0_PASSWORD=
@@ -61,4 +63,3 @@ Thanks to Frank (KG9M) for his assistance with design and testing.
     export AMP_PIPER_DIR=/usr/etc
     # Make sure the libpiper .sos are on the path
     export LD_LIBRARY_PATH=/usr/lib
-
