@@ -1,6 +1,10 @@
 # Amp Hub Change Log
 
-## 2026-04-04
+## Next
+
+- Upgrade to the latest core that has some audio speed improvements.
+
+## 2026-02-04
 
 - More work cleaning up excessive announcements.
 - An announcement has been added when a connection fails. This will 
