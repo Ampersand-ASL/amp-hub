@@ -58,7 +58,7 @@
 using namespace std;
 using namespace kc1fsz;
 
-static const char* VERSION = "20260204.0";
+static const char* VERSION = "20260209.0";
 static const char* PUBLIC_USER = "radio";
 
 static void sigHandler(int sig);
@@ -92,13 +92,13 @@ int main(int argc, const char** argv) {
     std::thread serviceThread(service_thread, &log, VERSION, &pokeAddr);
 
     // Setup the message router
-    threadsafequeue2<Message> respQueue;
+    threadsafequeue2<MessageCarrier> respQueue;
     MultiRouter router(respQueue);
 
     // Setup a background thread to do TTS. 
     // There are queues in/out to handle requests/response.
     // This is hard-coded as line #7.
-    threadsafequeue2<Message> ttsReqQueue;
+    threadsafequeue2<MessageCarrier> ttsReqQueue;
     QueueConsumer ttsConsumer7(ttsReqQueue);
     router.addRoute(&ttsConsumer7, 7);
     std::atomic<bool> ttsRun(true);
