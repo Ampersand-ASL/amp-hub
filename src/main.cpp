@@ -63,6 +63,9 @@ static const char* PUBLIC_USER = "radio";
 
 static void sigHandler(int sig);
 
+static const unsigned callCount = 8;
+static amp::BridgeCall callSpace[callCount];
+
 int main(int argc, const char** argv) {
 
     amp::setThreadName("Hub");
@@ -106,7 +109,7 @@ int main(int argc, const char** argv) {
 
     // Setup the conference bridge
     amp::Bridge bridge10(log, traceLog, clock, router, amp::BridgeCall::Mode::NORMAL, 
-        10, 7, 0, 0, 1);
+        10, 7, 0, 0, 1, callSpace, callCount);
     router.addRoute(&bridge10, 10);
     bridge10.setLocalNodeNumber(getenv("AMP_NODE0_NUMBER"));
     bridge10.setGreeting(getenv("AMP_NODE0_GREETING"));
