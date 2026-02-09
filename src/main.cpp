@@ -63,8 +63,9 @@ static const char* PUBLIC_USER = "radio";
 
 static void sigHandler(int sig);
 
-static const unsigned callCount = 8;
-static amp::BridgeCall callSpace[callCount];
+static const unsigned callCount = 256;
+static amp::BridgeCall bridgeCallSpace[callCount];
+static LineIAX2::Call iax2CallSpace[callCount];
 
 int main(int argc, const char** argv) {
 
@@ -76,6 +77,7 @@ int main(int argc, const char** argv) {
     log.info("KC1FSZ ASL Hub");
     log.info("Powered by the Ampersand ASL Project https://github.com/Ampersand-ASL");
     log.info("Version %s", VERSION);
+    log.info("Call capacity: %u", callCount);
 
     StdClock clock;
     NullLog traceLog;
@@ -109,7 +111,7 @@ int main(int argc, const char** argv) {
 
     // Setup the conference bridge
     amp::Bridge bridge10(log, traceLog, clock, router, amp::BridgeCall::Mode::NORMAL, 
-        10, 7, 0, 0, 1, callSpace, callCount);
+        10, 7, 0, 0, 1, bridgeCallSpace, callCount);
     router.addRoute(&bridge10, 10);
     bridge10.setLocalNodeNumber(getenv("AMP_NODE0_NUMBER"));
     bridge10.setGreeting(getenv("AMP_NODE0_GREETING"));
@@ -119,7 +121,7 @@ int main(int argc, const char** argv) {
     amp::NumberAuthorizerStd sourceVal(getenv("AMP_IAX_ALLOWLIST"));
     // IMPORTANT: The directed POKE feature is turned on here!
     LineIAX2 iax2Channel1(log, traceLog, clock, 1, router, &destVal, &sourceVal, 0, 10,
-        PUBLIC_USER);
+        PUBLIC_USER, iax2CallSpace, callCount);
     router.addRoute(&iax2Channel1, 1);
     //iax2Channel0.setTrace(true);
     iax2Channel1.setPrivateKey(getenv("AMP_PRIVATE_KEY"));
