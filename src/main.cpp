@@ -32,6 +32,7 @@
 
 // KC1FSZ
 #include "kc1fsz-tools/Log.h"
+#include "kc1fsz-tools/MTLog2.h"
 #include "kc1fsz-tools/linux/StdClock.h"
 #include "kc1fsz-tools/fixedqueue.h"
 #include "kc1fsz-tools/threadsafequeue.h"
@@ -58,7 +59,7 @@
 using namespace std;
 using namespace kc1fsz;
 
-static const char* VERSION = "20260209.0";
+static const char* VERSION = "20260210.0";
 static const char* PUBLIC_USER = "radio";
 
 static void sigHandler(int sig);
@@ -72,7 +73,7 @@ int main(int argc, const char** argv) {
     amp::setThreadName("Hub");
 
     signal(SIGSEGV, sigHandler);
-    MTLog log;
+    MTLog2 log;
 
     log.info("KC1FSZ ASL Hub");
     log.info("Powered by the Ampersand ASL Project https://github.com/Ampersand-ASL");
@@ -148,6 +149,9 @@ int main(int argc, const char** argv) {
     // thread and puts it into the IAX line.
     TimerTask timer1(log, clock, 10, 
         [&log, &pokeAddr, &iax2Channel1]() {
+            // Log stats
+            //log.info("Log timing %lu", log.getSlowestUs());
+            // Poke address
             std::string addr = pokeAddr.getCopy();
             if (!addr.empty())
                 iax2Channel1.setPokeAddr(addr.c_str());
