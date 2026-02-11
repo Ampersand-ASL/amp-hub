@@ -59,12 +59,12 @@
 using namespace std;
 using namespace kc1fsz;
 
-static const char* VERSION = "20260210.0";
+static const char* VERSION = "20260211.0";
 static const char* PUBLIC_USER = "radio";
 
 static void sigHandler(int sig);
 
-static const unsigned callCount = 256;
+static const unsigned callCount = 512;
 static amp::BridgeCall bridgeCallSpace[callCount];
 static LineIAX2::Call iax2CallSpace[callCount];
 
