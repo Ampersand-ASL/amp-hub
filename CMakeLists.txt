@@ -91,7 +91,7 @@ add_executable(amp-hub
   ed25519/src/sha512.c
   ed25519/src/verify.c
 )
-target_compile_options(amp-hub PRIVATE -Wall -Wpedantic -g -O3 -mtune=native)
+target_compile_options(amp-hub PRIVATE -Wall -Wpedantic -g -O3 -mtune=native -ffast-math)
 
 add_dependencies(amp-hub libpiper_untar)
 add_dependencies(amp-hub piper_voice)
