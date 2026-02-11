@@ -64,7 +64,8 @@ static const char* PUBLIC_USER = "radio";
 
 static void sigHandler(int sig);
 
-static const unsigned callCount = 512;
+// This variable controls the maximum number of calls that the hub can accept.
+static const unsigned callCount = 1024;
 static amp::BridgeCall bridgeCallSpace[callCount];
 static LineIAX2::Call iax2CallSpace[callCount];
 
