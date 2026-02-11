@@ -18,7 +18,6 @@ cmake_minimum_required(VERSION 3.13)
 project(ampersand C CXX ASM)
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_CXX_STANDARD 23)
-add_compile_options(-fstack-protector-all -Wall -Wpedantic -g)
 
 # ----- Custom work needed to use  libpiper ----------------------------------
 
@@ -72,8 +71,7 @@ add_executable(amp-hub
   amp-core/src/TTSService.cpp
   kc1fsz-tools-cpp/src/Common.cpp
   kc1fsz-tools-cpp/src/NetUtils.cpp
-  kc1fsz-tools-cpp/src/DTMFDetector2.cpp
-  kc1fsz-tools-cpp/src/MicroDNS.cpp
+    kc1fsz-tools-cpp/src/MicroDNS.cpp
   kc1fsz-tools-cpp/src/StdPollTimer.cpp
   kc1fsz-tools-cpp/src/fixed_math.cpp
   kc1fsz-tools-cpp/src/linux/StdClock.cpp
@@ -93,6 +91,8 @@ add_executable(amp-hub
   ed25519/src/sha512.c
   ed25519/src/verify.c
 )
+target_compile_options(amp-hub PRIVATE -Wall -Wpedantic -g -O3 -mtune=native)
+
 add_dependencies(amp-hub libpiper_untar)
 add_dependencies(amp-hub piper_voice)
 

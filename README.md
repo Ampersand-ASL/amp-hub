@@ -12,10 +12,12 @@ Thanks to Frank (KG9M) for his assistance with design and testing.
 
 ## Building AMP Hub With Install
 
+    sudo apt update
+    sudo apt -y upgrade
     # Make sure you have all the packages needed to build
-    sudo apt -y install cmake build-essential git xxd libasound2-dev libcurl4-gnutls-dev Libusb-1.0-0-dev emacs-nox
+    sudo apt -y install cmake build-essential git xxd libasound2-dev libcurl4-gnutls-dev Libusb-1.0-0-dev emacs-nox gdb
     # Setup release-specific variable:
-    export AMP_HUB_VERSION=20260204
+    export AMP_HUB_VERSION=20260210
     export AMP_ARCH=$(uname -m)
     git clone https://github.com/Ampersand-ASL/amp-hub.git
     cd amp-hub
