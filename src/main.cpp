@@ -155,14 +155,16 @@ int main(int argc, const char** argv) {
     // Setup the voter line
     LineVoter voter19(log, clock, LINE_ID_VOTER, router);
     router.addRoute(&voter19, LINE_ID_VOTER);
+    voter19.setTrace(true);
 
     if (getenv("AMP_VOTER_PORT") != 0) {
         // Determine the address family, defaulting to IPv4
         short voterAddrFamily = getenv("AMP_VOTER_PROTO") != 0 && 
             strcmp(getenv("AMP_VOTER_PROTO"), "IPV6") == 0 ? AF_INET6 : AF_INET;
         // Open up the IAX2 network connection
-        voter19.open(voterAddrFamily, atoi(getenv("AMP_VOTER_PORT")));
         voter19.setServerPassword(getenv("AMP_VOTER_SERVER_PASSWORD"));
+        voter19.setClientPasswords(getenv("AMP_VOTER_CLIENT_PASSWORDS"));
+        voter19.open(voterAddrFamily, atoi(getenv("AMP_VOTER_PORT")));
     }
 
     // Setup a timer that takes the poke address generated from the service
@@ -179,7 +181,7 @@ int main(int argc, const char** argv) {
     );
 
     // Main loop        
-    Runnable2* tasks2[] = { &iax2Channel1, &bridge10, &router, &timer1 };
+    Runnable2* tasks2[] = { &iax2Channel1, &voter19, &bridge10, &router, &timer1 };
     EventLoop::run(log, clock, 0, 0, tasks2, std::size(tasks2), nullptr, false);
 
     return 0;
