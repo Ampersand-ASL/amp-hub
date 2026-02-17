@@ -17,7 +17,7 @@ Thanks to Frank (KG9M) for his assistance with design and testing.
     # Make sure you have all the packages needed to build
     sudo apt -y install cmake build-essential git xxd libasound2-dev libcurl4-gnutls-dev Libusb-1.0-0-dev emacs-nox gdb
     # Setup release-specific variable:
-    export AMP_HUB_VERSION=20260210
+    export AMP_HUB_VERSION=20260217
     export AMP_ARCH=$(uname -m)
     git clone https://github.com/Ampersand-ASL/amp-hub.git
     cd amp-hub
@@ -41,6 +41,11 @@ Thanks to Frank (KG9M) for his assistance with design and testing.
     # etc ..
 
 ## Service Commands
+
+    # One-time user create
+    sudo useradd -s /sbin/nologin amp-hub
+    # One-time install
+    sudo cp etc/amp-hub.service /lib/systemd/system
 
     sudo systemctl enable amp-hub
     sudo systemctl start amp-hub
