@@ -153,9 +153,9 @@ int main(int argc, const char** argv) {
     iax2Channel1.setPokeNodeNumber(getenv("AMP_NODE0_NUMBER"));
     
     // Setup the voter line
-    LineVoter voter19(log, clock, LINE_ID_VOTER, router);
+    LineVoter voter19(log, clock, LINE_ID_VOTER, router, LINE_ID_BRIDGE);
     router.addRoute(&voter19, LINE_ID_VOTER);
-    voter19.setTrace(true);
+    //voter19.setTrace(true);
 
     if (getenv("AMP_VOTER_PORT") != 0) {
         // Determine the address family, defaulting to IPv4
