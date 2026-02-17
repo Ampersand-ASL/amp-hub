@@ -43,6 +43,7 @@
 // amp-core
 #include "NullLog.h"
 #include "LineIAX2.h"
+#include "LineVoter.h"
 #include "EventLoop.h"
 #include "Bridge.h"
 #include "MultiRouter.h"
@@ -56,18 +57,23 @@
 #include "service-thread.h"
 #include "NumberAuthorizerStd.h"
 
+#define MAX_CALLS (128)
+#define LINE_ID_IAX (1)
+#define LINE_ID_BRIDGE (10)
+#define LINE_ID_STATS (12)
+#define LINE_ID_VOTER (19)
+
 using namespace std;
 using namespace kc1fsz;
 
-static const char* VERSION = "20260211.0";
+static const char* VERSION = "20260217.0";
 static const char* PUBLIC_USER = "radio";
 
 static void sigHandler(int sig);
 
 // This variable controls the maximum number of calls that the hub can accept.
-static const unsigned callCount = 1024;
-static amp::BridgeCall bridgeCallSpace[callCount];
-static LineIAX2::Call iax2CallSpace[callCount];
+static amp::BridgeCall bridgeCallSpace[MAX_CALLS];
+static LineIAX2::Call iax2CallSpace[MAX_CALLS];
 
 int main(int argc, const char** argv) {
 
@@ -79,7 +85,7 @@ int main(int argc, const char** argv) {
     log.info("KC1FSZ ASL Hub");
     log.info("Powered by the Ampersand ASL Project https://github.com/Ampersand-ASL");
     log.info("Version %s", VERSION);
-    log.info("Call capacity: %u", callCount);
+    log.info("Call capacity: %u", MAX_CALLS);
 
     StdClock clock;
     NullLog traceLog;
@@ -113,8 +119,8 @@ int main(int argc, const char** argv) {
 
     // Setup the conference bridge
     amp::Bridge bridge10(log, traceLog, clock, router, amp::BridgeCall::Mode::NORMAL, 
-        10, 7, 0, 0, 1, bridgeCallSpace, callCount);
-    router.addRoute(&bridge10, 10);
+        LINE_ID_BRIDGE, 7, 0, 0, 1, LINE_ID_STATS, bridgeCallSpace, MAX_CALLS);
+    router.addRoute(&bridge10, LINE_ID_BRIDGE);
     bridge10.setLocalNodeNumber(getenv("AMP_NODE0_NUMBER"));
     bridge10.setGreeting(getenv("AMP_NODE0_GREETING"));
 
@@ -122,9 +128,9 @@ int main(int argc, const char** argv) {
     amp::NumberAuthorizerStd destVal(getenv("AMP_NODE0_NUMBER"));
     amp::NumberAuthorizerStd sourceVal(getenv("AMP_IAX_ALLOWLIST"));
     // IMPORTANT: The directed POKE feature is turned on here!
-    LineIAX2 iax2Channel1(log, traceLog, clock, 1, router, &destVal, &sourceVal, 0, 10,
-        PUBLIC_USER, iax2CallSpace, callCount);
-    router.addRoute(&iax2Channel1, 1);
+    LineIAX2 iax2Channel1(log, traceLog, clock, LINE_ID_IAX, router, &destVal, &sourceVal, 
+        0, LINE_ID_BRIDGE, PUBLIC_USER, iax2CallSpace, MAX_CALLS);
+    router.addRoute(&iax2Channel1, LINE_ID_IAX);
     //iax2Channel0.setTrace(true);
     iax2Channel1.setPrivateKey(getenv("AMP_PRIVATE_KEY"));
     iax2Channel1.setDNSRoot(getenv("AMP_ASL_DNS_ROOT"));
@@ -146,6 +152,9 @@ int main(int argc, const char** argv) {
     iax2Channel1.setDirectedPokeEnabled(true);
     iax2Channel1.setPokeNodeNumber(getenv("AMP_NODE0_NUMBER"));
     
+    // Setup the voter line
+
+
     // Setup a timer that takes the poke address generated from the service
     // thread and puts it into the IAX line.
     TimerTask timer1(log, clock, 10, 

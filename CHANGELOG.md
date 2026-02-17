@@ -3,6 +3,7 @@
 ## Next
 
 - Upgrade to the latest core that has some audio speed improvements.
+- Added support for the G.726 CODEC.
 
 ## 2026-02-04
 

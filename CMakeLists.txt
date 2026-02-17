@@ -51,6 +51,7 @@ add_executable(amp-hub
   amp-core/src/Message.cpp
   amp-core/src/Line.cpp
   amp-core/src/LineIAX2.cpp
+  amp-core/src/LineVoter.cpp
   amp-core/src/IAX2FrameFull.cpp
   amp-core/src/IAX2Util.cpp
   amp-core/src/RegisterTask.cpp
@@ -60,6 +61,7 @@ add_executable(amp-hub
   amp-core/src/Transcoder_SLIN_48K.cpp
   amp-core/src/Transcoder_SLIN_16K.cpp
   amp-core/src/Transcoder_SLIN_8K.cpp
+  amp-core/src/Transcoder_G726.cpp
   amp-core/src/Bridge.cpp
   amp-core/src/BridgeCall.cpp
   amp-core/src/BridgeIn.cpp
@@ -69,9 +71,11 @@ add_executable(amp-hub
   amp-core/src/MultiRouter.cpp
   amp-core/src/KerchunkFilter.cpp
   amp-core/src/TTSService.cpp
+  amp-core/src/VoterUtil.cpp
+  amp-core/src/VoterPeer.cpp
   kc1fsz-tools-cpp/src/Common.cpp
   kc1fsz-tools-cpp/src/NetUtils.cpp
-    kc1fsz-tools-cpp/src/MicroDNS.cpp
+  kc1fsz-tools-cpp/src/MicroDNS.cpp
   kc1fsz-tools-cpp/src/StdPollTimer.cpp
   kc1fsz-tools-cpp/src/fixed_math.cpp
   kc1fsz-tools-cpp/src/linux/StdClock.cpp
@@ -90,6 +94,9 @@ add_executable(amp-hub
   ed25519/src/sc.c
   ed25519/src/sha512.c
   ed25519/src/verify.c
+  g726-codec/src/g711.c
+  g726-codec/src/g72x.c
+  g726-codec/src/g726_32.c
 )
 target_compile_options(amp-hub PRIVATE -Wall -Wpedantic -g -O3 -mtune=native -ffast-math)
 
@@ -105,6 +112,7 @@ target_include_directories(amp-hub PRIVATE ed25519/src)
 target_include_directories(amp-hub PRIVATE amp-core/include)
 target_include_directories(amp-hub PRIVATE cpp-httplib)
 target_include_directories(amp-hub PRIVATE json/include)
+target_include_directories(amp-hub PRIVATE g726-codec/src)
 
 # The untared libpiper
 target_include_directories(amp-hub PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/libpiper-${CMAKE_HOST_SYSTEM_PROCESSOR}/include)
