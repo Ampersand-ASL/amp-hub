@@ -144,16 +144,26 @@ int main(int argc, const char** argv) {
     }
 
     // Determine the address family, defaulting to IPv4
-    short addrFamily = getenv("AMP_IAX_PROTO") != 0 && 
+    short iaxAddrFamily = getenv("AMP_IAX_PROTO") != 0 && 
         strcmp(getenv("AMP_IAX_PROTO"), "IPV6") == 0 ? AF_INET6 : AF_INET;
     // Open up the IAX2 network connection
-    iax2Channel1.open(addrFamily, atoi(getenv("AMP_IAX_PORT")));
+    iax2Channel1.open(iaxAddrFamily, atoi(getenv("AMP_IAX_PORT")));
     iax2Channel1.setPokeEnabled(true);
     iax2Channel1.setDirectedPokeEnabled(true);
     iax2Channel1.setPokeNodeNumber(getenv("AMP_NODE0_NUMBER"));
     
     // Setup the voter line
+    LineVoter voter19(log, clock, LINE_ID_VOTER, router);
+    router.addRoute(&voter19, LINE_ID_VOTER);
 
+    if (getenv("AMP_VOTER_PORT") != 0) {
+        // Determine the address family, defaulting to IPv4
+        short voterAddrFamily = getenv("AMP_VOTER_PROTO") != 0 && 
+            strcmp(getenv("AMP_VOTER_PROTO"), "IPV6") == 0 ? AF_INET6 : AF_INET;
+        // Open up the IAX2 network connection
+        voter19.open(voterAddrFamily, atoi(getenv("AMP_VOTER_PORT")));
+        voter19.setServerPassword(getenv("AMP_VOTER_SERVER_PASSWORD"));
+    }
 
     // Setup a timer that takes the poke address generated from the service
     // thread and puts it into the IAX line.
