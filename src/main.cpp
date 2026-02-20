@@ -52,6 +52,7 @@
 #include "Poker.h"
 #include "TTSService.h"
 #include "TimerTask.h"
+#include "QueueConsumer.h"
 
 // asl-hub
 #include "service-thread.h"
@@ -59,6 +60,7 @@
 
 #define MAX_CALLS (128)
 #define LINE_ID_IAX (1)
+#define LINE_ID_TTS (7)
 #define LINE_ID_BRIDGE (10)
 #define LINE_ID_STATS (12)
 #define LINE_ID_VOTER (19)
@@ -66,7 +68,7 @@
 using namespace std;
 using namespace kc1fsz;
 
-static const char* VERSION = "20260217.0";
+static const char* VERSION = "20260220.0";
 static const char* PUBLIC_USER = "radio";
 
 static void sigHandler(int sig);
@@ -100,26 +102,34 @@ int main(int argc, const char** argv) {
     // the service thread to the main thread.
     copyableatomic<std::string> pokeAddr;
 
-    // Get the service thread running. This handles registration,
-    // status, and the monitor.
-    std::thread serviceThread(service_thread, &log, VERSION, &pokeAddr);
-
-    // Setup the message router
+    // Setup the message router for this thread
     threadsafequeue2<MessageCarrier> respQueue;
     MultiRouter router(respQueue);
+
+    // Setup a way to pass messages over to the service thread
+    threadsafequeue2<MessageCarrier> serviceThreadReqQueue;
+    // Pass message from local router up to the service thread
+    QueueConsumer serviceThreadReqQueueConsumer(serviceThreadReqQueue);
+    router.addRoute(&serviceThreadReqQueueConsumer, LINE_ID_STATS);
+
+    // Get the service thread running. This handles registration,
+    // status, and the monitor.
+    std::thread serviceThread(service_thread, &log, VERSION, &pokeAddr, 
+        &serviceThreadReqQueue);
 
     // Setup a background thread to do TTS. 
     // There are queues in/out to handle requests/response.
     // This is hard-coded as line #7.
     threadsafequeue2<MessageCarrier> ttsReqQueue;
     QueueConsumer ttsConsumer7(ttsReqQueue);
-    router.addRoute(&ttsConsumer7, 7);
+    router.addRoute(&ttsConsumer7, LINE_ID_TTS);
     std::atomic<bool> ttsRun(true);
     std::thread ttsThread(amp::ttsLoop, &log, &ttsReqQueue, &respQueue, &ttsRun);
 
     // Setup the conference bridge
     amp::Bridge bridge10(log, traceLog, clock, router, amp::BridgeCall::Mode::NORMAL, 
-        LINE_ID_BRIDGE, 7, 0, 0, 1, LINE_ID_STATS, bridgeCallSpace, MAX_CALLS);
+        LINE_ID_BRIDGE, 
+        LINE_ID_TTS, 0, 0, 1, LINE_ID_STATS, bridgeCallSpace, MAX_CALLS);
     router.addRoute(&bridge10, LINE_ID_BRIDGE);
     bridge10.setLocalNodeNumber(getenv("AMP_NODE0_NUMBER"));
     bridge10.setGreeting(getenv("AMP_NODE0_GREETING"));

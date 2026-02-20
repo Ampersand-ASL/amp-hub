@@ -54,7 +54,8 @@ static const char* POKE_HOST_NAME = "61057.nodes.allstarlink.org";
 static int POKE_PORT = 4570;
 
 void service_thread(Log* l, const char* version, 
-    copyableatomic<std::string>* pokeAddr) {
+    copyableatomic<std::string>* pokeAddr,
+    threadsafequeue2<MessageCarrier>* reqQueue) {
 
     amp::setThreadName("SVC");
 
@@ -74,10 +75,23 @@ void service_thread(Log* l, const char* version,
             getenv("AMP_NODE0_PASSWORD"), atoi(getenv("AMP_IAX_PORT")));
     }
 
-    StatsTask statsTask(log, clock, "1.0.0");
+    StatsTask statsTask(log, clock, version);
     if (getenv("AMP_ASL_STAT_URL") != 0) {
         statsTask.configure(getenv("AMP_ASL_STAT_URL"), getenv("AMP_NODE0_NUMBER"));
     }
+
+    // This timer task checks for messages on the request queue 
+    // and distributes them appropriately.
+    TimerTask timer2(log, clock, 5, 
+        [&log, reqQueue, &statsTask]() {
+            MessageCarrier msg;
+            if (reqQueue->try_pop(msg, 10)) {
+                // The node list for stats reporting
+                if (msg.isSignal(Message::SignalType::LINK_REPORT))
+                    statsTask.setNodeList((const char*)msg.body());
+            }
+        }
+    );
 
     // This is a timer that does a DNS resolution on the "poke node"
     // periodically and puts the result into the pokeAddr that is 

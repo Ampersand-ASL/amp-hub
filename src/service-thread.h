@@ -20,6 +20,14 @@
 
 #include "kc1fsz-tools/Log.h"
 #include "kc1fsz-tools/copyableatomic.h"
+#include "kc1fsz-tools/threadsafequeue2.h"
 
+#include "Message.h"
+
+/**
+ * @param reqQueue The queue that is used to pass requests/notifications
+ * into the service thread.
+ */
 void service_thread(kc1fsz::Log* l, const char* version, 
-    copyableatomic<std::string>* pokeAddr);
+    copyableatomic<std::string>* pokeAddr,
+    kc1fsz::threadsafequeue2<kc1fsz::MessageCarrier>* reqQueue);
