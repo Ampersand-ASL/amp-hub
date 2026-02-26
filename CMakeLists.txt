@@ -73,6 +73,7 @@ add_executable(amp-hub
   amp-core/src/TTSService.cpp
   amp-core/src/VoterUtil.cpp
   amp-core/src/VoterPeer.cpp
+  amp-core/src/ProgramUtils.cpp
   kc1fsz-tools-cpp/src/Common.cpp
   kc1fsz-tools-cpp/src/NetUtils.cpp
   kc1fsz-tools-cpp/src/MicroDNS.cpp

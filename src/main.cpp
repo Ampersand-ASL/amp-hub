@@ -68,7 +68,7 @@
 using namespace std;
 using namespace kc1fsz;
 
-static const char* VERSION = "20260225.0";
+static const char* VERSION = "20260226.0";
 static const char* PUBLIC_USER = "radio";
 
 static void sigHandler(int sig);
@@ -141,7 +141,9 @@ int main(int argc, const char** argv) {
     LineIAX2 iax2Channel1(log, traceLog, clock, LINE_ID_IAX, router, &destVal, &sourceVal, 
         0, LINE_ID_BRIDGE, PUBLIC_USER, iax2CallSpace, MAX_CALLS);
     router.addRoute(&iax2Channel1, LINE_ID_IAX);
-    //iax2Channel0.setTrace(true);
+    // IAX tracing needed?
+    if (getenv("AMP_IAX_TRACE_LEVEL") != 0) 
+        iax2Channel1.setTrace(true);
     iax2Channel1.setPrivateKey(getenv("AMP_PRIVATE_KEY"));
     iax2Channel1.setDNSRoot(getenv("AMP_ASL_DNS_ROOT"));
     if (getenv("AMP_IAX_AUTHMODE")) {

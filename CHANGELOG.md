@@ -1,5 +1,9 @@
 # Amp Hub Change Log
 
+## 2026-02-26
+ 
+- Trying to address a connection sequence number issue with the M1KE device.
+
 ## 2026-02-25
 
 - Upgrade to the latest core that has some audio speed improvements.
