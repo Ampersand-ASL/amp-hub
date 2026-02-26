@@ -18,6 +18,7 @@ These instructions assume you are starting from nothing except:
 
 Latest packages: 
 * [https://ampersand-asl.s3.us-west-1.amazonaws.com/releases/amp-hub-20260225-x86_64.tar.gz](https://ampersand-asl.s3.us-west-1.amazonaws.com/releases/amp-hub-20260225-x86_64.tar.gz)
+* [https://ampersand-asl.s3.us-west-1.amazonaws.com/releases/amp-hub-20260225-aarch64.tar.gz](https://ampersand-asl.s3.us-west-1.amazonaws.com/releases/amp-hub-20260225-aarch64.tar.gz)
 
 # Steps to Upgrade
 
