@@ -17,7 +17,7 @@ Thanks to Frank (KG9M) for his assistance with design and testing.
     # Make sure you have all the packages needed to build
     sudo apt -y install cmake build-essential git xxd libasound2-dev libcurl4-gnutls-dev Libusb-1.0-0-dev emacs-nox gdb
     # Setup release-specific variable:
-    export AMP_HUB_VERSION=20260217
+    export AMP_HUB_VERSION=20260225
     export AMP_ARCH=$(uname -m)
     git clone https://github.com/Ampersand-ASL/amp-hub.git
     cd amp-hub

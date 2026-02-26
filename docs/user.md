@@ -17,7 +17,7 @@ These instructions assume you are starting from nothing except:
 * The ASL node number and password for the hub node.
 
 Latest packages: 
-* [https://ampersand-asl.s3.us-west-1.amazonaws.com/releases/amp-hub-20260204-x86_64.tar.gz](https://ampersand-asl.s3.us-west-1.amazonaws.com/releases/amp-hub-20260204-x86_64.tar.gz)
+* [https://ampersand-asl.s3.us-west-1.amazonaws.com/releases/amp-hub-20260225-x86_64.tar.gz](https://ampersand-asl.s3.us-west-1.amazonaws.com/releases/amp-hub-20260225-x86_64.tar.gz)
 
 # Steps to Upgrade
 
@@ -25,7 +25,7 @@ Most of the time the upgrade process only involves updating the `amp-hub`
 binary. As such, a shorter process can be used. **This will not touch
 your /usr/etc/amp-hub.env so the previous configuration should remain.** 
 
-    export AMP_HUB_VERSION=20260204
+    export AMP_HUB_VERSION=20260225
     export AMP_ARCH=$(uname -m)
     wget https://ampersand-asl.s3.us-west-1.amazonaws.com/releases/amp-hub-${AMP_HUB_VERSION}-${AMP_ARCH}.tar.gz
     tar xvf amp-hub-${AMP_HUB_VERSION}-${AMP_ARCH}.tar.gz
@@ -87,7 +87,7 @@ Add the required Linux packages:
 
 Install the binary package:
 
-    export AMP_HUB_VERSION=20260204
+    export AMP_HUB_VERSION=20260225
     export AMP_ARCH=$(uname -m)
     wget https://ampersand-asl.s3.us-west-1.amazonaws.com/releases/amp-hub-${AMP_HUB_VERSION}-${AMP_ARCH}.tar.gz
     tar xvf amp-hub-${AMP_HUB_VERSION}-${AMP_ARCH}.tar.gz
@@ -108,7 +108,7 @@ These lines will probably need to change:
     AMP_NODE0_GREETING="Welcome to node 9 9 9 9 9 9."
     AMP_IAX_PORT=4569
     # A comma-separated list of nodes that are allowed to connect, if 
-    # restrictions are desired:
+    # restrictions are desired, otherwise commend out this line.
     AMP_IAX_ALLOWLIST=672731,581610,581611,581612,581613
     # ===========================================================
 

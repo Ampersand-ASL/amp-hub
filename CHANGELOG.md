@@ -1,9 +1,12 @@
 # Amp Hub Change Log
 
-## Next
+## 2026-02-25
 
 - Upgrade to the latest core that has some audio speed improvements.
 - Added support for the G.726 CODEC.
+- Fixed a problem with the SLIN 8K CODEC.
+- Added outbound L telemetry text message to allow other nodes to see the linked stations
+- Node statistics have been added.
 
 ## 2026-02-04
 
