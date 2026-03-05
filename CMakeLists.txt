@@ -115,12 +115,12 @@ target_include_directories(amp-hub PRIVATE json/include)
 target_include_directories(amp-hub PRIVATE g726-codec/src)
 
 # The untared libpiper
-target_include_directories(amp-hub PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/libpiper-${CMAKE_HOST_SYSTEM_PROCESSOR}/include)
+target_include_directories(amp-hub PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/libpiper/include)
 # TODO: REMOVE
 target_include_directories(amp-hub PRIVATE amp-core/src)
 target_link_libraries(amp-hub -lcurl)
-target_link_directories(amp-hub PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/libpiper-${CMAKE_HOST_SYSTEM_PROCESSOR})
-target_link_directories(amp-hub PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/libpiper-${CMAKE_HOST_SYSTEM_PROCESSOR}/lib)
+target_link_directories(amp-hub PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/libpiper)
+target_link_directories(amp-hub PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/libpiper/lib)
 target_link_libraries(amp-hub -lpiper -lonnxruntime)
 
 # Installation 
@@ -133,7 +133,4 @@ install(FILES etc/amp-hub.service DESTINATION ${CMAKE_INSTALL_PREFIX}/etc COMPON
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libpiper-${CMAKE_HOST_SYSTEM_PROCESSOR}/libpiper.so DESTINATION ${CMAKE_INSTALL_PREFIX}/lib COMPONENT amp-hub)
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libpiper-${CMAKE_HOST_SYSTEM_PROCESSOR}/lib/libonnxruntime.so.1 DESTINATION ${CMAKE_INSTALL_PREFIX}/lib COMPONENT amp-hub)
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libpiper-${CMAKE_HOST_SYSTEM_PROCESSOR}/lib/libonnxruntime.so.1.22.0 DESTINATION ${CMAKE_INSTALL_PREFIX}/lib COMPONENT amp-hub)
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/en_US-amy-low.onnx DESTINATION ${CMAKE_INSTALL_PREFIX}/etc COMPONENT amp-hub)
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/en_US-amy-low.onnx.json DESTINATION ${CMAKE_INSTALL_PREFIX}/etc COMPONENT amp-hub)
-install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/libpiper-${CMAKE_HOST_SYSTEM_PROCESSOR}/espeak-ng-data DESTINATION ${CMAKE_INSTALL_PREFIX}/etc COMPONENT amp-hub)
 
