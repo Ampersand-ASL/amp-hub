@@ -24,13 +24,13 @@ set(CMAKE_CXX_STANDARD 23)
 # A pre-build version of the libpiper run-time has been created to avoid the 
 # complexity of building it on the fly.
 # TODO: Figure out how to remove this.
-add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/libpiper-${CMAKE_HOST_SYSTEM_PROCESSOR}/include
+add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/libpiper/include
   COMMAND wget https://ampersand-asl.s3.us-west-1.amazonaws.com/releases/libpiper-${CMAKE_HOST_SYSTEM_PROCESSOR}.tar.gz -O ${CMAKE_CURRENT_BINARY_DIR}/libpiper-${CMAKE_HOST_SYSTEM_PROCESSOR}.tar.gz
   COMMAND ${CMAKE_COMMAND} -E tar xf ${CMAKE_CURRENT_BINARY_DIR}/libpiper-${CMAKE_HOST_SYSTEM_PROCESSOR}.tar.gz
   COMMENT "Unpacking libpiper"
   VERBATIM
 )
-add_custom_target(libpiper_untar DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/libpiper-${CMAKE_HOST_SYSTEM_PROCESSOR}/include)
+add_custom_target(libpiper_untar DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/libpiper/include)
 
 # This is the voice file we use (Amy, low quality)
 add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/en_US-amy-low.onnx ${CMAKE_CURRENT_BINARY_DIR}/en_US-amy-low.onnx.json
@@ -73,6 +73,8 @@ add_executable(amp-hub
   amp-core/src/TTSService.cpp
   amp-core/src/VoterUtil.cpp
   amp-core/src/VoterPeer.cpp
+  amp-core/src/ProgramUtils.cpp
+  amp-core/src/LineParrot.cpp
   kc1fsz-tools-cpp/src/Common.cpp
   kc1fsz-tools-cpp/src/NetUtils.cpp
   kc1fsz-tools-cpp/src/MicroDNS.cpp

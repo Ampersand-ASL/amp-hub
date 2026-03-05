@@ -1,0 +1,15 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"workbench.colorCustomizations": {
+			"statusBar.background": "#b5320a", // General background color
+			"statusBar.foreground": "#FFFFFF", // Text color
+			"statusBar.noFolderBackground": "#222225", // Color when no folder is open
+			"statusBar.debuggingBackground": "#511f1f" // Color when debugging
+		}
+	}
+}
