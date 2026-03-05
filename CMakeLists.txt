@@ -34,8 +34,10 @@ add_custom_target(libpiper_untar DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/libpiper/in
 
 # This is the voice file we use (Amy, low quality)
 add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/en_US-amy-low.onnx ${CMAKE_CURRENT_BINARY_DIR}/en_US-amy-low.onnx.json
-  COMMAND wget https://mackinnon.info/ampersand/releases/en_US-amy-low.onnx -O ${CMAKE_CURRENT_BINARY_DIR}/en_US-amy-low.onnx
-  COMMAND wget https://mackinnon.info/ampersand/releases/en_US-amy-low.onnx.json -O ${CMAKE_CURRENT_BINARY_DIR}/en_US-amy-low.onnx.json
+  COMMAND wget https://ampersand-asl.s3.us-west-1.amazonaws.com/releases/libpiper-etc.tar.gz -O ${CMAKE_CURRENT_BINARY_DIR}/libpiper-etc.tar.gz
+  COMMAND ${CMAKE_COMMAND} -E tar xf ${CMAKE_CURRENT_BINARY_DIR}/libpiper-etc.tar.gz
+  COMMAND cp ${CMAKE_CURRENT_BINARY_DIR}/libpiper-etc/en_US-amy-low.onnx ${CMAKE_CURRENT_BINARY_DIR}/en_US-amy-low.onnx
+  COMMAND cp ${CMAKE_CURRENT_BINARY_DIR}/libpiper-etc/en_US-amy-low.onnx.json ${CMAKE_CURRENT_BINARY_DIR}/en_US-amy-low.onnx.json
   COMMENT "Fetching voice"
   VERBATIM
 )
@@ -51,7 +53,6 @@ add_executable(amp-hub
   amp-core/src/Message.cpp
   amp-core/src/Line.cpp
   amp-core/src/LineIAX2.cpp
-  amp-core/src/LineVoter.cpp
   amp-core/src/IAX2FrameFull.cpp
   amp-core/src/IAX2Util.cpp
   amp-core/src/RegisterTask.cpp
@@ -71,10 +72,11 @@ add_executable(amp-hub
   amp-core/src/MultiRouter.cpp
   amp-core/src/KerchunkFilter.cpp
   amp-core/src/TTSService.cpp
-  amp-core/src/VoterUtil.cpp
-  amp-core/src/VoterPeer.cpp
   amp-core/src/ProgramUtils.cpp
   amp-core/src/LineParrot.cpp
+  amp-core/src/voter/VoterUtil.cpp
+  amp-core/src/voter/VoterPeer.cpp
+  amp-core/src/voter/LineVoter.cpp
   kc1fsz-tools-cpp/src/Common.cpp
   kc1fsz-tools-cpp/src/NetUtils.cpp
   kc1fsz-tools-cpp/src/MicroDNS.cpp

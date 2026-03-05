@@ -43,7 +43,6 @@
 // amp-core
 #include "NullLog.h"
 #include "LineIAX2.h"
-#include "LineVoter.h"
 #include "EventLoop.h"
 #include "Bridge.h"
 #include "MultiRouter.h"
@@ -53,6 +52,7 @@
 #include "TTSService.h"
 #include "TimerTask.h"
 #include "QueueConsumer.h"
+#include "voter/LineVoter.h"
 
 // asl-hub
 #include "service-thread.h"
