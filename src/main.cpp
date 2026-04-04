@@ -68,7 +68,7 @@
 using namespace std;
 using namespace kc1fsz;
 
-static const char* VERSION = "20260305.0";
+static const char* VERSION = "20260404.0";
 static const char* PUBLIC_USER = "radio";
 
 static void sigHandler(int sig);
@@ -192,7 +192,7 @@ int main(int argc, const char** argv) {
 
     // Main loop        
     Runnable2* tasks2[] = { &iax2Channel1, &voter19, &bridge10, &router, &timer1 };
-    EventLoop::run(log, clock, 0, 0, tasks2, std::size(tasks2), nullptr, false);
+    EventLoop::run(log, clock, 0, 0, tasks2, std::size(tasks2), nullptr, true);
 
     return 0;
 }
